@@ -1,0 +1,3809 @@
+/*
+ * Author       : swathi2410452_ssn
+ * Generated on : 22-Feb-2026 12:46:55
+ * Version      : 1.0
+ */
+ application "ChatEdit AI"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "America/Los_Angeles"
+ 	time format = "24-hr"
+ 	forms
+	{
+		form edit_sessions
+		{
+			displayname = "Edit Sessions"
+			success message = "Edit Session Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			video
+			(
+				type = list	
+				displayname = "Video"
+				values  = user_videos.ID
+    			displayformat = [video_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			started_at
+			(
+    			type = datetime
+				displayname = "Started At"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			last_active
+			(
+    			type = datetime
+				displayname = "Last Active"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			total_edits
+			(
+				type = number
+				displayname = "Total Edits"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			status
+			(
+				type = picklist
+				displayname = "Status"
+				values = {"Active","Completed","Abandoned","Paused"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			user
+			(
+    			type = text
+				displayname = "User"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+			blueprint components
+			{
+				stages = {"Session Created","Video Uploaded","Session Cancelled","Subtitle Generation In Progress","Video Processing","Editing In Progress","Subtitle Review Pending","Subtitle Re-Generation Required","Final Review Ready","Editing Paused","Finalized and Published","Session Completed"}
+			}
+		}
+		form editing_commands
+		{
+			displayname = "Editing Commands"
+			success message = "Editing Command Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			command_id
+			(
+    			type = autonumber
+				displayname = "Command ID"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			video
+			(
+				type = list	
+				displayname = "Video"
+				values  = user_videos.ID
+    			displayformat = [video_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			user_prompt
+			(
+    			type = text
+				displayname = "User Prompt"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			interpreted_action
+			(
+				type = picklist
+				displayname = "Interpreted Action"
+				values = {"Add Subtitles","Remove Phrase","Cut Repetition","Edit Transcript","Trim Silence"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			target_text
+			(
+    			type = text
+				displayname = "Target Text"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			start_timestamp
+			(
+    			type = time
+				displayname = "Start Timestamp"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			end_timestamp
+			(
+    			type = time
+				displayname = "End Timestamp"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			status
+			(
+				type = picklist
+				displayname = "Status"
+				values = {"Failed","Applied","Pending","Processing"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			created_at
+			(
+    			type = datetime
+				displayname = "Created At"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			updated_at
+			(
+    			type = datetime
+				displayname = "Updated At"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form media
+		{
+			displayname = "Media"
+			success message = "Medium Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			created_time
+			(
+    			type = datetime
+				displayname = "Created Time"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			description
+			(
+    			type = textarea
+				displayname = "Description"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			name
+			(
+    			type = text
+				displayname = "Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			progress
+			(
+				type = decimal
+				displayname = "Progress"
+				maxchar = 16
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			status
+			(
+    			type = text
+				displayname = "Status"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			type_field
+			(
+    			type = text
+				displayname = "Type"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			updated_time
+			(
+    			type = datetime
+				displayname = "Updated Time"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form subtitles
+		{
+			displayname = "Subtitles"
+			success message = "Subtitle Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			video
+			(
+				type = list	
+				displayname = "Video"
+				values  = user_videos.ID
+    			displayformat = [video_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			segment
+			(
+				type = list	
+				displayname = "Segment"
+				values  = transcript_segments.ID
+    			displayformat = [segment_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			text
+			(
+    			type = text
+				displayname = "Text"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			start_time
+			(
+    			type = time
+				displayname = "Start Time"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			end_time
+			(
+    			type = time
+				displayname = "End Time"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			font_size
+			(
+				type = number
+				displayname = "Font Size"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			color
+			(
+    			type = text
+				displayname = "Color"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			position
+			(
+    			type = text
+				displayname = "Position"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			created_at
+			(
+    			type = datetime
+				displayname = "Created At"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form suggested_edits
+		{
+			displayname = "Suggested Edits"
+			success message = "Edit Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			command
+			(
+				type = list	
+				displayname = "Command"
+				values  = editing_commands.ID
+    			displayformat = [command_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			segment
+			(
+				type = list	
+				displayname = "Segment"
+				values  = transcript_segments.ID
+    			displayformat = [segment_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			action_type
+			(
+				type = picklist
+				displayname = "Action Type"
+				values = {"Replace","Trim","Remove","Insert"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			start_time
+			(
+    			type = time
+				displayname = "Start Time"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			end_time
+			(
+    			type = time
+				displayname = "End Time"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			description
+			(
+    			type = text
+				displayname = "Description"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			confidence
+			(
+				type = decimal
+				displayname = "Confidence"
+				maxchar = 16
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			applied
+			(
+    			type = checkbox
+				displayname = "Applied"
+				initial value = false
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			reviewed_by
+			(
+    			type = text
+				displayname = "Reviewed By"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form transcript_segments
+		{
+			displayname = "Transcript Segments"
+			success message = "Transcript Segment Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			segment_id
+			(
+    			type = autonumber
+				displayname = "Segment ID"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			transcript
+			(
+				type = list	
+				displayname = "Transcript"
+				values  = transcripts.ID
+    			displayformat = [transcript_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			start_time
+			(
+    			type = time
+				displayname = "Start Time"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			end_time
+			(
+    			type = time
+				displayname = "End Time"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			text
+			(
+    			type = text
+				displayname = "Text"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			word_count
+			(
+				type = number
+				displayname = "Word Count"
+				maxchar = 19
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			is_speech
+			(
+    			type = checkbox
+				displayname = "Is Speech"
+				initial value = false
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			confidence
+			(
+				type = decimal
+				displayname = "Confidence"
+				maxchar = 16
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form transcripts
+		{
+			displayname = "Transcripts"
+			success message = "Transcript Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			transcript_id
+			(
+    			type = autonumber
+				displayname = "Transcript ID"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			video
+			(
+				type = list	
+				displayname = "Video"
+				values  = user_videos.ID
+    			displayformat = [video_id]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+				height = 13px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			raw_text
+			(
+    			type = textarea
+				displayname = "Raw Text"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			language
+			(
+    			type = text
+				displayname = "Language"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			transcription_status
+			(
+				type = picklist
+				displayname = "Transcription Status"
+				values = {"Failed","Completed","Pending"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			created_at
+			(
+    			type = datetime
+				displayname = "Created At"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			updated_at
+			(
+    			type = datetime
+				displayname = "Updated At"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form user_videos
+		{
+			displayname = "User Videos"
+			success message = "User Video Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			video_id
+			(
+    			type = autonumber
+				displayname = "Video ID"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			user
+			(
+    			type = text
+				displayname = "User"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			wistia_media
+			(
+				type = picklist	
+				displayname = "Wistia Media"
+				values  = media.ID
+    			displayformat = [created_time]
+				allow new entries
+				[
+					displayname = "Add New"
+				]
+				advanced field search = true
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			upload_date
+			(
+    			type = datetime
+				displayname = "Upload Date"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			status
+			(
+				type = picklist
+				displayname = "Status"
+				values = {"Ready","Uploaded","Editing","Completed","Transcribing"}
+				others option = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			preview_url
+			(
+    			type = url
+				displayname = "Preview URL"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			duration
+			(
+    			type = time
+				displayname = "Duration"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+			blueprint components
+			{
+				stages = {"Video Uploaded","Transcription Processing","Video Rejected","Transcription Completed","Transcription Failed","Video Published","Review Required","Transcription Rejected","Video Viewed","Video Archived","Video Removed","Video Restored","Video Permanently Deleted","Video Reuploaded","Video Uploaded (Pending Review)"}
+			}
+		}
+	}
+	reports
+	{
+		list suggested_edits_Report
+		{
+			displayName = "All Edits"
+			show all rows from suggested_edits    
+			(
+				command as "Command"
+				segment as "Segment"
+				action_type as "Action Type"
+				start_time as "Start Time"
+				end_time as "End Time"
+				description as "Description"
+				confidence as "Confidence"
+				applied as "Applied"
+				reviewed_by as "Reviewed By"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (action_type == "Insert")
+				fields = [action_type]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (action_type == "Remove")
+				fields = [action_type]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+				"New Formatting3"
+				{
+				condition = (action_type == "Replace")
+				fields = [action_type]
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+			)
+		}
+		kanban suggested_edits_by_action_type
+		{
+			displayName = "Action Types"
+			show all rows from suggested_edits    
+			(
+				command as "Command"
+				segment as "Segment"
+				action_type as "Action Type"
+				start_time as "Start Time"
+				end_time as "End Time"
+				description as "Description"
+				confidence as "Confidence"
+				applied as "Applied"
+				reviewed_by as "Reviewed By"
+			)
+			options
+			(
+	 			display field = action_type
+	 		)
+		}
+		list user_videos_Report
+		{
+			displayName = "All User Videos"
+			show all rows from user_videos    
+			(
+				video_id as "Video ID"
+				user as "User"
+				wistia_media as "Wistia Media"
+				upload_date as "Upload Date"
+				status as "Status"
+				preview_url as "Preview URL"
+				duration as "Duration"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (status == "Completed")
+				fields = [status]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (status == "Ready")
+				fields = [status]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+				"New Formatting3"
+				{
+				condition = (status == "Transcribing")
+				fields = [status]
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+			)
+		}
+		kanban user_videos_by_status
+		{
+			displayName = "Statuses"
+			show all rows from user_videos    
+			(
+				video_id as "Video ID"
+				user as "User"
+				wistia_media as "Wistia Media"
+				upload_date as "Upload Date"
+				status as "Status"
+				preview_url as "Preview URL"
+				duration as "Duration"
+			)
+			options
+			(
+	 			display field = status
+	 		)
+		}
+		list subtitles_Report
+		{
+			displayName = "All Subtitles"
+			show all rows from subtitles    
+			(
+				video as "Video"
+				segment as "Segment"
+				text as "Text"
+				start_time as "Start Time"
+				end_time as "End Time"
+				font_size as "Font Size"
+				color as "Color"
+				position as "Position"
+				created_at as "Created At"
+			)
+		}
+		list editing_commands_Report
+		{
+			displayName = "All Editing Commands"
+			show all rows from editing_commands    
+			(
+				command_id as "Command ID"
+				video as "Video"
+				user_prompt as "User Prompt"
+				interpreted_action as "Interpreted Action"
+				target_text as "Target Text"
+				start_timestamp as "Start Timestamp"
+				end_timestamp as "End Timestamp"
+				status as "Status"
+				created_at as "Created At"
+				updated_at as "Updated At"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (interpreted_action == "Add Subtitles")
+				fields = [interpreted_action]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (interpreted_action == "Cut Repetition")
+				fields = [interpreted_action]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+				"New Formatting3"
+				{
+				condition = (interpreted_action == "Remove Phrase")
+				fields = [interpreted_action]
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+				"New Formatting4"
+				{
+				condition = (interpreted_action == "Trim Silence")
+				fields = [interpreted_action]
+				format = "color:#ffffff;background-color:#3598db;"
+				}
+			)
+		}
+		kanban editing_commands_by_interpreted_action
+		{
+			displayName = "Actions"
+			show all rows from editing_commands    
+			(
+				command_id as "Command ID"
+				video as "Video"
+				user_prompt as "User Prompt"
+				interpreted_action as "Interpreted Action"
+				target_text as "Target Text"
+				start_timestamp as "Start Timestamp"
+				end_timestamp as "End Timestamp"
+				status as "Status"
+				created_at as "Created At"
+				updated_at as "Updated At"
+			)
+			options
+			(
+	 			display field = interpreted_action
+	 		)
+		}
+		list transcripts_Report
+		{
+			displayName = "All Transcripts"
+			show all rows from transcripts    
+			(
+				transcript_id as "Transcript ID"
+				video as "Video"
+				raw_text as "Raw Text"
+				language as "Language"
+				transcription_status as "Transcription Status"
+				created_at as "Created At"
+				updated_at as "Updated At"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (transcription_status == "Completed")
+				fields = [transcription_status]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (transcription_status == "Failed")
+				fields = [transcription_status]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+				"New Formatting3"
+				{
+				condition = (transcription_status == "Pending")
+				fields = [transcription_status]
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+			)
+		}
+		kanban transcripts_by_transcription_status
+		{
+			displayName = "Transcription Statuses"
+			show all rows from transcripts    
+			(
+				transcript_id as "Transcript ID"
+				video as "Video"
+				raw_text as "Raw Text"
+				language as "Language"
+				transcription_status as "Transcription Status"
+				created_at as "Created At"
+				updated_at as "Updated At"
+			)
+			options
+			(
+	 			display field = transcription_status
+	 		)
+		}
+		list transcript_segments_Report
+		{
+			displayName = "All Transcript Segments"
+			show all rows from transcript_segments    
+			(
+				segment_id as "Segment ID"
+				transcript as "Transcript"
+				start_time as "Start Time"
+				end_time as "End Time"
+				text as "Text"
+				word_count as "Word Count"
+				is_speech as "Is Speech"
+				confidence as "Confidence"
+			)
+		}
+		list edit_sessions_Report
+		{
+			displayName = "All Edit Sessions"
+			show all rows from edit_sessions    
+			(
+				video as "Video"
+				started_at as "Started At"
+				last_active as "Last Active"
+				total_edits as "Total Edits"
+				status as "Status"
+				user as "User"
+			)
+			conditional formatting
+			(
+				"New Formatting1"
+				{
+				condition = (status == "Abandoned")
+				fields = [status]
+				format = "color:#ffffff;background-color:#765f89;"
+				}
+				"New Formatting2"
+				{
+				condition = (status == "Completed")
+				fields = [status]
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+			)
+		}
+		kanban edit_sessions_by_status
+		{
+			displayName = "Statuses"
+			show all rows from edit_sessions    
+			(
+				video as "Video"
+				started_at as "Started At"
+				last_active as "Last Active"
+				total_edits as "Total Edits"
+				status as "Status"
+				user as "User"
+			)
+			options
+			(
+	 			display field = status
+	 		)
+		}
+		list media_Report
+		{
+			displayName = "All Media"
+			show all rows from media    
+			(
+				created_time as "Created Time"
+				description as "Description"
+				name as "Name"
+				progress as "Progress"
+				status as "Status"
+				type_field as "Type"
+				updated_time as "Updated Time"
+			)
+		}
+	}
+	pages
+	{
+		page DashBoard
+		{
+			displayname = "Dashboard"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='28%'\n   \t>\n\t<panel elementName='Panel 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '7px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = 'theme'\n\twidth = '50px'\n\theight = '50px'\n\ttype = 'icon'\n\tvalue = 'business-percentage-39'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = 'theme'\n\tsize = '20px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '2px'\n\n\n\tdisplayType = 'actual'\n\tdecimalPlaces = '2'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#5051F9'\n    borderWidth = '0px'\n\n\t  value = 'thisapp.suggested_edits.confidence.avg'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tcolor = '#44404C'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\n\n\n\n\t  value = 'Average Confidence'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Panel 2'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '7px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = 'theme'\n\twidth = '50px'\n\theight = '50px'\n\ttype = 'icon'\n\tvalue = 'business-percentage-39'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = 'theme'\n\tsize = '20px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '2px'\n\n\n\tdisplayType = 'actual'\n\tdecimalPlaces = '2'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#5051F9'\n    borderWidth = '0px'\n\n\t  value = 'thisapp.transcript_segments.confidence.avg'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tcolor = '#44404C'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\n\n\n\n\t  value = 'Average Confidence'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='24%'\n   \t>\n\t<panel elementName='Panel 3'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '7px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = 'theme'\n\twidth = '50px'\n\theight = '50px'\n\ttype = 'icon'\n\tvalue = 'business-percentage-39'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = 'theme'\n\tsize = '20px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '2px'\n\n\n\tdisplayType = 'actual'\n\tdecimalPlaces = '2'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#5051F9'\n    borderWidth = '0px'\n\n\t  value = 'thisapp.edit_sessions.total_edits.sum'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tcolor = '#44404C'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\n\n\n\n\t  value = 'Total Total Edits'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='23%'\n   \t>\n\t<panel elementName='Panel 4'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '7px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = 'theme'\n\twidth = '50px'\n\theight = '50px'\n\ttype = 'icon'\n\tvalue = 'loader-refresh'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = 'theme'\n\tsize = '20px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '2px'\n\n\n\tdisplayType = 'actual'\n\tdecimalPlaces = '2'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#5051F9'\n    borderWidth = '0px'\n\n\t  value = 'thisapp.media.progress.avg'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tcolor = '#44404C'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\n\n\n\n\t  value = 'Average Progress'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='40%'\n   \t>\n\t<chart \n\telementName='Chart 1'\n\n\t\n\ttitle = 'Word Count by Confidence'\n\t\n\ttype = 'Scatter'\n\txtitle = 'Word Count'\n\tytitle = 'Confidence'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme'\n\tlegendPos = 'none'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'transcript_segments'\n\txfield = 'word_count'\n\tyfields = 'value:confidence'\n\t\tDelugeCriteria = 'word_count is not null'\n/>\n\n</column><column\n   \t\t width='35%'\n   \t>\n\t<panel elementName='Grouped_Panel 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='50px'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '20px'\n\tmarginRight = '20px' \n\tcolor = '#000000'\n\tsize = '16px'\n\ttype = 'Text'\n\n\n\n\n\n\n\n\t  value = 'Action Types'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '17px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n    borderColor = '#444444'\n    borderWidth = '0px'\n\t\twidth = '50%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '2px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '7px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = 'theme'\n\tbgColor = '#F1F2F4'\n\twidth = '50px'\n\theight = '50px'\n\ttype = 'icon'\n\tvalue = 'tech-2-l-remove'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tcolor = 'theme'\n\tsize = '20px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'action_type == &quot;Replace&quot;'\n\t  value = 'thisapp.suggested_edits.action_type.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tcolor = '#44404C'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\n\n\n\n\t  value = 'Replace'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpaddingTop = '17px'\n\tpaddingLeft = '0px'\n\tpaddingRight = '17px'\n\tpaddingBottom = '17px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '50%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '7px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = 'theme'\n\tbgColor = '#F1F2F4'\n\twidth = '50px'\n\theight = '50px'\n\ttype = 'icon'\n\tvalue = 'ui-2-grid-50'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tcolor = 'theme'\n\tsize = '20px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'action_type == &quot;Trim&quot;'\n\t  value = 'thisapp.suggested_edits.action_type.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tcolor = '#44404C'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\n\n\n\n\t  value = 'Trims'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '17px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n    borderColor = '#444444'\n    borderWidth = '0px'\n\t\twidth = '50%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n    \tcornerRadius = '2px'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '7px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = 'theme'\n\tbgColor = '#F1F2F4'\n\twidth = '50px'\n\theight = '50px'\n\ttype = 'icon'\n\tvalue = 'tech-2-p-remove'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tcolor = 'theme'\n\tsize = '20px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'action_type == &quot;Remove&quot;'\n\t  value = 'thisapp.suggested_edits.action_type.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tcolor = '#44404C'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\n\n\n\n\t  value = 'Remove'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc><pc \n\t\tpaddingTop = '17px'\n\tpaddingLeft = '0px'\n\tpaddingRight = '17px'\n\tpaddingBottom = '17px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '50%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<image  \n\t\tmarginLeft = '0px'\n\tmarginRight = '7px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = 'theme'\n\tbgColor = '#F1F2F4'\n\twidth = '50px'\n\theight = '50px'\n\ttype = 'icon'\n\tvalue = 'users-2-a-edit'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tcolor = 'theme'\n\tsize = '20px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n\n\t\tcriteria = 'action_type == &quot;Insert&quot;'\n\t  value = 'thisapp.suggested_edits.action_type.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tcolor = '#44404C'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\n\n\n\n\t  value = 'Inserts'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='25%'\n   \t>\n\t<panel elementName='Panel_Button 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n>\n\t<pr \n\t\t\twidth='fill'\n\t\theight='50px'\n>\n\t<pc \n\t\tpadding = '0px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '20px'\n\tmarginRight = '20px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tcolor = '#2D2D2D'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\n\n\n\n\n\t  value = 'Quick Links'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpaddingTop = '0px'\n\tpaddingLeft = '10px'\n\tpaddingRight = '10px'\n\tpaddingBottom = '10px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\thAlign = 'left'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '5px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = 'theme'\n\tbgColor = '#F1F2F4'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'ui-2-square-add-08'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n\t\thAlign = 'left'\n>\n\t<text \n    action = 'OpenForm'\n\t\tcomponentLinkName = 'suggested_edits'\n\t\ttarget = 'new-window'\n\n\tmarginLeft = '12px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = 'theme'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '2px'\n\n\n\n\n\n    borderColor = '#5051F9'\n    borderWidth = '0px'\n\n\t  value = 'Add New Suggested Edits'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\tpadding = '8px'\n\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '5px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = 'theme'\n\tbgColor = '#F1F2F4'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'ui-2-square-add-08'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n\t\thAlign = 'left'\n>\n\t<text \n    action = 'OpenForm'\n\t\tcomponentLinkName = 'user_videos'\n\t\ttarget = 'new-window'\n\n\tmarginLeft = '12px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = 'theme'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '2px'\n\n\n\n\n\n    borderColor = '#5051F9'\n    borderWidth = '0px'\n\n\t  value = 'Add New User Videos'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\tpadding = '8px'\n\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '5px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = 'theme'\n\tbgColor = '#F1F2F4'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'ui-2-square-add-08'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n\t\thAlign = 'left'\n>\n\t<text \n    action = 'OpenForm'\n\t\tcomponentLinkName = 'subtitles'\n\t\ttarget = 'new-window'\n\n\tmarginLeft = '12px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = 'theme'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '2px'\n\n\n\n\n\n    borderColor = '#5051F9'\n    borderWidth = '0px'\n\n\t  value = 'Add New Subtitles'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\tpadding = '8px'\n\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t\n</pc>\n</pr>\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '5px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = 'theme'\n\tbgColor = '#F1F2F4'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'ui-2-square-add-08'\n\tsize = '16px'\n\tcornerRadius = '10px'\n\ticonType = 'outline'\n/>\n</pc><pc \n\t\n\t\thAlign = 'left'\n>\n\t<text \n    action = 'OpenForm'\n\t\tcomponentLinkName = 'editing_commands'\n\t\ttarget = 'new-window'\n\n\tmarginLeft = '12px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = 'theme'\n\tsize = '15px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '2px'\n\n\n\n\n\n    borderColor = '#5051F9'\n    borderWidth = '0px'\n\n\t  value = 'Add New Editing Commands'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<chart \n\telementName='Chart 2'\n\n\t\n\ttitle = 'Status by Progress'\n\t\n\ttype = 'Bar'\n\txtitle = 'Status'\n\tytitle = 'Progress'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme'\n\tlegendPos = 'none'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'media'\n\txfield = 'status'\n\tyfields = 'sum:progress'\n\t\tDelugeCriteria = 'status is not null &amp;&amp; status != &quot;&quot;'\n/>\n\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'suggested_edits_Report'\n\t\n\t\tiszreport = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n\n/>\n</column>\n</row>\n</layout>\n</zml>"
+		}
+	}
+
+
+		workflow
+		{
+
+
+
+
+		blueprint
+		{
+    			video_editing_and_subtitling_pipeline as "Video Editing and Subtitling Pipeline"
+    			{
+        			type = Blueprint
+        			form = edit_sessions
+        			start
+        			{
+            			start stage = "Session Created"
+        			}
+        			stages
+        			{
+           			"Session Created"
+           			{
+           			}
+           			"Video Uploaded"
+           			{
+           			}
+           			"Session Cancelled"
+           			{
+           			}
+           			"Subtitle Generation In Progress"
+           			{
+           			}
+           			"Video Processing"
+           			{
+           			}
+           			"Editing In Progress"
+           			{
+           			}
+           			"Subtitle Review Pending"
+           			{
+           			}
+           			"Subtitle Re-Generation Required"
+           			{
+           			}
+           			"Final Review Ready"
+           			{
+           			}
+           			"Editing Paused"
+           			{
+           			}
+           			"Finalized and Published"
+           			{
+           			}
+           			"Session Completed"
+           			{
+           			}
+        			}
+        			transitions
+        			{
+    				cancel_session as "Cancel Session"
+    				{
+         				type = normal
+         				from stage = "Session Created"
+         				to stage = "Session Cancelled"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				complete_editing as "Complete Editing"
+    				{
+         				type = normal
+         				from stage = "Editing In Progress"
+         				to stage = "Final Review Ready"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				complete_session as "Mark Session as Completed"
+    				{
+         				type = normal
+         				from stage = "Finalized and Published"
+         				to stage = "Session Completed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				complete_subtitle_generation as "Complete Subtitle Generation"
+    				{
+         				type = normal
+         				from stage = "Subtitle Generation In Progress"
+         				to stage = "Subtitle Review Pending"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				pause_editing as "Pause Editing Session"
+    				{
+         				type = normal
+         				from stage = "Editing In Progress"
+         				to stage = "Editing Paused"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				publish_video as "Publish Final Video"
+    				{
+         				type = normal
+         				from stage = "Final Review Ready"
+         				to stage = "Finalized and Published"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				regenerate_subtitles as "Re-Generate Subtitles"
+    				{
+         				type = normal
+         				from stage = "Subtitle Review Pending"
+         				to stage = "Subtitle Re-Generation Required"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				resume_editing as "Resume Editing"
+    				{
+         				type = normal
+         				from stage = "Editing Paused"
+         				to stage = "Editing In Progress"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				return_to_editing as "Return to Editing"
+    				{
+         				type = normal
+         				from stage = "Final Review Ready"
+         				to stage = "Editing In Progress"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				start_editing as "Begin Manual Editing"
+    				{
+         				type = normal
+         				from stage = "Video Processing"
+         				to stage = "Editing In Progress"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				start_subtitle_generation as "Start Subtitle Generation"
+    				{
+         				type = normal
+         				from stage = "Video Uploaded"
+         				to stage = "Subtitle Generation In Progress"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				start_video_processing as "Begin Video Processing"
+    				{
+         				type = normal
+         				from stage = "Video Uploaded"
+         				to stage = "Video Processing"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				upload_video as "Upload Video"
+    				{
+         				type = normal
+         				from stage = "Session Created"
+         				to stage = "Video Uploaded"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+        			}
+    			}
+    			video_upload_and_transcription_workflow as "Video Upload and Transcription Workflow"
+    			{
+        			type = Blueprint
+        			form = user_videos
+        			start
+        			{
+            			start stage = "Video Uploaded"
+        			}
+        			stages
+        			{
+           			"Video Uploaded"
+           			{
+           			}
+           			"Transcription Processing"
+           			{
+           			}
+           			"Video Rejected"
+           			{
+           			}
+           			"Transcription Completed"
+           			{
+           			}
+           			"Transcription Failed"
+           			{
+           			}
+           			"Video Published"
+           			{
+           			}
+           			"Review Required"
+           			{
+           			}
+           			"Transcription Rejected"
+           			{
+           			}
+           			"Video Viewed"
+           			{
+           			}
+           			"Video Archived"
+           			{
+           			}
+           			"Video Removed"
+           			{
+           			}
+           			"Video Restored"
+           			{
+           			}
+           			"Video Permanently Deleted"
+           			{
+           			}
+           			"Video Reuploaded"
+           			{
+           			}
+           			"Video Uploaded (Pending Review)"
+           			{
+           			}
+        			}
+        			transitions
+        			{
+    				approve_and_publish as "Approve and Publish Video"
+    				{
+         				type = normal
+         				from stage = "Review Required"
+         				to stage = "Video Published"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				archive_video as "Archive Video After Retention Period"
+    				{
+         				type = normal
+         				from stage = "Video Published"
+         				to stage = "Video Archived"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				complete_transcription as "Complete Transcription"
+    				{
+         				type = normal
+         				from stage = "Transcription Processing"
+         				to stage = "Transcription Completed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				delete_video as "Delete Video Permanently"
+    				{
+         				type = normal
+         				from stage = "Video Removed"
+         				to stage = "Video Permanently Deleted"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				handle_transcription_failure as "Handle Transcription Failure"
+    				{
+         				type = normal
+         				from stage = "Transcription Processing"
+         				to stage = "Transcription Failed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				proceed_to_transcription as "Proceed to Transcription"
+    				{
+         				type = normal
+         				from stage = "Video Uploaded (Pending Review)"
+         				to stage = "Transcription Processing"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				publish_video as "Publish Video with Transcription"
+    				{
+         				type = normal
+         				from stage = "Transcription Completed"
+         				to stage = "Video Published"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				re_publish_video as "Re-Publish Restored Video"
+    				{
+         				type = normal
+         				from stage = "Video Restored"
+         				to stage = "Video Published"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				reject_transcription as "Reject Transcription and Re-Process"
+    				{
+         				type = normal
+         				from stage = "Review Required"
+         				to stage = "Transcription Rejected"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				reject_video as "Reject Video Upload"
+    				{
+         				type = normal
+         				from stage = "Video Uploaded"
+         				to stage = "Video Rejected"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				remove_video as "Remove Video from Public Access"
+    				{
+         				type = normal
+         				from stage = "Video Published"
+         				to stage = "Video Removed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				reprocess_transcription as "Re-Process Transcription"
+    				{
+         				type = normal
+         				from stage = "Transcription Rejected"
+         				to stage = "Transcription Processing"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				request_review as "Flag for Manual Review"
+    				{
+         				type = normal
+         				from stage = "Transcription Completed"
+         				to stage = "Review Required"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				restore_video as "Restore Archived Video"
+    				{
+         				type = normal
+         				from stage = "Video Archived"
+         				to stage = "Video Restored"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				retry_transcription as "Retry Transcription with Backup System"
+    				{
+         				type = normal
+         				from stage = "Transcription Failed"
+         				to stage = "Transcription Processing"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				reupload_video as "Re-upload Video After Fix"
+    				{
+         				type = normal
+         				from stage = "Video Rejected"
+         				to stage = "Video Reuploaded"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				start_transcription as "Start Transcription Process"
+    				{
+         				type = normal
+         				from stage = "Video Uploaded"
+         				to stage = "Transcription Processing"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+    				track_view as "Track Video View"
+    				{
+         				type = normal
+         				from stage = "Video Published"
+         				to stage = "Video Viewed"
+         				before
+         				{
+         				}
+         				after
+         				{
+         				}
+  				}
+        			}
+    			}
+		}
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"AI Editing Specialist"
+			{
+				name = "AI Editing Specialist"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Analyze and interpret user editing commands to generate precise video edits \n"
+				ModulePermissions
+				{
+					edit_sessions
+					{
+						enabled= Viewall,Modifyall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							edit_sessions_Report={"View","Edit","Delete"}
+							edit_sessions_by_status={"View","Edit","Delete"}
+						}
+					}
+					editing_commands
+					{
+						enabled= Viewall,Modifyall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							editing_commands_by_interpreted_action={"View","Edit","Delete"}
+							editing_commands_Report={"View","Edit","Delete"}
+						}
+					}
+					suggested_edits
+					{
+						enabled= Viewall,Modifyall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							suggested_edits_Report={"View","Edit","Delete"}
+							suggested_edits_by_action_type={"View","Edit","Delete"}
+						}
+					}
+				}
+			}
+			"Video Processing Coordinator"
+			{
+				name = "Video Processing Coordinator"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Oversee the end-to-end video upload and processing pipeline \n"
+				ModulePermissions
+				{
+					transcript_segments
+					{
+						enabled= Viewall,Modifyall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							transcript_segments_Report={"View","Edit","Delete"}
+						}
+					}
+					media
+					{
+						enabled= Viewall,Modifyall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							media_Report={"View","Edit","Delete"}
+						}
+					}
+					edit_sessions
+					{
+						enabled= Viewall,Modifyall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							edit_sessions_Report={"View","Edit","Delete"}
+							edit_sessions_by_status={"View","Edit","Delete"}
+						}
+					}
+					user_videos
+					{
+						enabled= Viewall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							user_videos_by_status={"View"}
+							user_videos_Report={"View"}
+						}
+					}
+				}
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"System Configuration Manager"
+			{
+				name = "System Configuration Manager"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Manage AI model settings and editing rule configurations \n"
+				ModulePermissions
+				{
+					transcript_segments
+					{
+						enabled= Viewall,Modifyall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							transcript_segments_Report={"View","Edit","Delete"}
+						}
+					}
+					edit_sessions
+					{
+						enabled= Viewall,Modifyall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							edit_sessions_Report={"View","Edit","Delete"}
+							edit_sessions_by_status={"View","Edit","Delete"}
+						}
+					}
+					editing_commands
+					{
+						enabled= Viewall,Modifyall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							editing_commands_by_interpreted_action={"View","Edit","Delete"}
+							editing_commands_Report={"View","Edit","Delete"}
+						}
+					}
+					suggested_edits
+					{
+						enabled= Viewall,Modifyall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							suggested_edits_Report={"View","Edit","Delete"}
+							suggested_edits_by_action_type={"View","Edit","Delete"}
+						}
+					}
+				}
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Transcription Quality Auditor"
+			{
+				name = "Transcription Quality Auditor"
+				type = Users_Permissions
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Review transcript accuracy and confidence scores for correctness \n"
+				ModulePermissions
+				{
+					subtitles
+					{
+						enabled= Viewall,Modifyall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							subtitles_Report={"View","Edit","Delete"}
+						}
+					}
+					transcript_segments
+					{
+						enabled= Viewall,Modifyall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							transcript_segments_Report={"View","Edit","Delete"}
+						}
+					}
+					transcripts
+					{
+						enabled= Viewall,Modifyall 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							transcripts_Report={"View","Edit","Delete"}
+							transcripts_by_transcription_status={"View","Edit","Delete"}
+						}
+					}
+				}
+			}
+			"Content Editor (Freelance)"
+			{
+				name = "Content Editor (Freelance)"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Collaborate with creators to refine video edits using AI suggestions \n"
+				ModulePermissions
+				{
+					subtitles
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							subtitles_Report={"View","Edit"}
+						}
+					}
+					editing_commands
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							editing_commands_by_interpreted_action={"View"}
+							editing_commands_Report={"View"}
+						}
+					}
+					suggested_edits
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							suggested_edits_Report={"View","Edit"}
+							suggested_edits_by_action_type={"View","Edit"}
+						}
+					}
+					user_videos
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							user_videos_by_status={"View"}
+							user_videos_Report={"View"}
+						}
+					}
+				}
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			"Instagram Creator"
+			{
+				name = "Instagram Creator"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:false, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Upload videos for AI-assisted editing \n"
+				ModulePermissions
+				{
+					editing_commands
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							editing_commands_by_interpreted_action={"View"}
+							editing_commands_Report={"View"}
+						}
+					}
+					suggested_edits
+					{
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							suggested_edits_Report={"View","Edit"}
+							suggested_edits_by_action_type={"View","Edit"}
+						}
+					}
+					user_videos
+					{
+						enabled= Create,Tab 
+						allFieldsVisible= true 
+						ReportPermissions
+						{
+							user_videos_by_status={"View","Edit"}
+							user_videos_Report={"View","Edit"}
+						}
+					}
+				}
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+	}
+
+
+	web
+	{
+		forms
+		{
+			form edit_sessions
+			{
+				label placement = left
+			}
+			form editing_commands
+			{
+				label placement = left
+			}
+			form media
+			{
+				label placement = left
+			}
+			form subtitles
+			{
+				label placement = left
+			}
+			form suggested_edits
+			{
+				label placement = left
+			}
+			form transcript_segments
+			{
+				label placement = left
+			}
+			form transcripts
+			{
+				label placement = left
+			}
+			form user_videos
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report suggested_edits_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								command as "Command"
+								segment as "Segment"
+								action_type as "Action Type"
+								start_time as "Start Time"
+								end_time as "End Time"
+								description as "Description"
+								confidence as "Confidence"
+								applied as "Applied"
+								reviewed_by as "Reviewed By"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    		 				Add 
+    		 				Import 
+    		 				Export 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+		     				title = "Overview"
+							fields
+							(
+								command as "Command"
+								segment as "Segment"
+								action_type as "Action Type"
+								start_time as "Start Time"
+								end_time as "End Time"
+								description as "Description"
+								confidence as "Confidence"
+								applied as "Applied"
+								reviewed_by as "Reviewed By"
+							)
+						)
+						datablock2
+						(
+							layout type = -2
+		     				title = "Command"
+		     				related field = command
+							fields
+							(
+								command_id as "Command ID"
+								video as "Video"
+								user_prompt as "User Prompt"
+								interpreted_action as "Interpreted Action"
+								target_text as "Target Text"
+								start_timestamp as "Start Timestamp"
+								end_timestamp as "End Timestamp"
+								status as "Status"
+								created_at as "Created At"
+								updated_at as "Updated At"
+							)
+						)
+						datablock3
+						(
+							layout type = -2
+		     				title = "Segment"
+		     				related field = segment
+							fields
+							(
+								segment_id as "Segment ID"
+								transcript as "Transcript"
+								start_time as "Start Time"
+								end_time as "End Time"
+								text as "Text"
+								word_count as "Word Count"
+								is_speech as "Is Speech"
+								confidence as "Confidence"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    	 				)
+    				)
+				)
+			}
+			report suggested_edits_by_action_type
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								description as "Description"
+								reviewed_by as "Reviewed By"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    		 				Add 
+    		 				Import 
+    		 				Export 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								command as "Command"
+								segment as "Segment"
+								action_type as "Action Type"
+								start_time as "Start Time"
+								end_time as "End Time"
+								description as "Description"
+								confidence as "Confidence"
+								applied as "Applied"
+								reviewed_by as "Reviewed By"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    	 				)
+    				)
+				)
+			}
+			report user_videos_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								video_id as "Video ID"
+								user as "User"
+								wistia_media as "Wistia Media"
+								upload_date as "Upload Date"
+								status as "Status"
+								preview_url as "Preview URL"
+								duration as "Duration"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    		 				Add 
+    		 				Import 
+    		 				Export 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+		     				title = "Overview"
+							fields
+							(
+								video_id as "Video ID"
+								user as "User"
+								wistia_media as "Wistia Media"
+								upload_date as "Upload Date"
+								status as "Status"
+								preview_url as "Preview URL"
+								duration as "Duration"
+							)
+						)
+						datablock2
+						(
+							layout type = -2
+		     				title = "Wistia Media"
+		     				related field = wistia_media
+							fields
+							(
+								created_time as "Created Time"
+								description as "Description"
+								name as "Name"
+								progress as "Progress"
+								status as "Status"
+								type_field as "Type"
+								updated_time as "Updated Time"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    	 				)
+    				)
+				)
+			}
+			report user_videos_by_status
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								user as "User"
+								video_id as "Video ID"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    		 				Add 
+    		 				Import 
+    		 				Export 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								video_id as "Video ID"
+								user as "User"
+								wistia_media as "Wistia Media"
+								upload_date as "Upload Date"
+								status as "Status"
+								preview_url as "Preview URL"
+								duration as "Duration"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    	 				)
+    				)
+				)
+			}
+			report subtitles_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								video as "Video"
+								segment as "Segment"
+								text as "Text"
+								start_time as "Start Time"
+								end_time as "End Time"
+								font_size as "Font Size"
+								color as "Color"
+								position as "Position"
+								created_at as "Created At"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    		 				Add 
+    		 				Import 
+    		 				Export 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+		     				title = "Overview"
+							fields
+							(
+								video as "Video"
+								segment as "Segment"
+								text as "Text"
+								start_time as "Start Time"
+								end_time as "End Time"
+								font_size as "Font Size"
+								color as "Color"
+								position as "Position"
+								created_at as "Created At"
+							)
+						)
+						datablock2
+						(
+							layout type = -2
+		     				title = "Segment"
+		     				related field = segment
+							fields
+							(
+								segment_id as "Segment ID"
+								transcript as "Transcript"
+								start_time as "Start Time"
+								end_time as "End Time"
+								text as "Text"
+								word_count as "Word Count"
+								is_speech as "Is Speech"
+								confidence as "Confidence"
+							)
+						)
+						datablock3
+						(
+							layout type = -2
+		     				title = "Video"
+		     				related field = video
+							fields
+							(
+								video_id as "Video ID"
+								user as "User"
+								wistia_media as "Wistia Media"
+								upload_date as "Upload Date"
+								status as "Status"
+								preview_url as "Preview URL"
+								duration as "Duration"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    	 				)
+    				)
+				)
+			}
+			report editing_commands_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								command_id as "Command ID"
+								video as "Video"
+								user_prompt as "User Prompt"
+								interpreted_action as "Interpreted Action"
+								target_text as "Target Text"
+								start_timestamp as "Start Timestamp"
+								end_timestamp as "End Timestamp"
+								status as "Status"
+								created_at as "Created At"
+								updated_at as "Updated At"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    		 				Add 
+    		 				Import 
+    		 				Export 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+		     				title = "Overview"
+							fields
+							(
+								command_id as "Command ID"
+								video as "Video"
+								user_prompt as "User Prompt"
+								interpreted_action as "Interpreted Action"
+								target_text as "Target Text"
+								start_timestamp as "Start Timestamp"
+								end_timestamp as "End Timestamp"
+								status as "Status"
+								created_at as "Created At"
+								updated_at as "Updated At"
+							)
+						)
+						datablock2
+						(
+							layout type = -2
+		     				title = "Video"
+		     				related field = video
+							fields
+							(
+								video_id as "Video ID"
+								user as "User"
+								wistia_media as "Wistia Media"
+								upload_date as "Upload Date"
+								status as "Status"
+								preview_url as "Preview URL"
+								duration as "Duration"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    	 				)
+    				)
+				)
+			}
+			report editing_commands_by_interpreted_action
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								user_prompt as "User Prompt"
+								target_text as "Target Text"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    		 				Add 
+    		 				Import 
+    		 				Export 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								command_id as "Command ID"
+								video as "Video"
+								user_prompt as "User Prompt"
+								interpreted_action as "Interpreted Action"
+								target_text as "Target Text"
+								start_timestamp as "Start Timestamp"
+								end_timestamp as "End Timestamp"
+								status as "Status"
+								created_at as "Created At"
+								updated_at as "Updated At"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    	 				)
+    				)
+				)
+			}
+			report transcripts_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								transcript_id as "Transcript ID"
+								video as "Video"
+								raw_text as "Raw Text"
+								language as "Language"
+								transcription_status as "Transcription Status"
+								created_at as "Created At"
+								updated_at as "Updated At"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    		 				Add 
+    		 				Import 
+    		 				Export 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+		     				title = "Overview"
+							fields
+							(
+								transcript_id as "Transcript ID"
+								video as "Video"
+								raw_text as "Raw Text"
+								language as "Language"
+								transcription_status as "Transcription Status"
+								created_at as "Created At"
+								updated_at as "Updated At"
+							)
+						)
+						datablock2
+						(
+							layout type = -2
+		     				title = "Video"
+		     				related field = video
+							fields
+							(
+								video_id as "Video ID"
+								user as "User"
+								wistia_media as "Wistia Media"
+								upload_date as "Upload Date"
+								status as "Status"
+								preview_url as "Preview URL"
+								duration as "Duration"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    	 				)
+    				)
+				)
+			}
+			report transcripts_by_transcription_status
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								language as "Language"
+								transcript_id as "Transcript ID"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    		 				Add 
+    		 				Import 
+    		 				Export 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								transcript_id as "Transcript ID"
+								video as "Video"
+								raw_text as "Raw Text"
+								language as "Language"
+								transcription_status as "Transcription Status"
+								created_at as "Created At"
+								updated_at as "Updated At"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    	 				)
+    				)
+				)
+			}
+			report transcript_segments_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								segment_id as "Segment ID"
+								transcript as "Transcript"
+								start_time as "Start Time"
+								end_time as "End Time"
+								text as "Text"
+								word_count as "Word Count"
+								is_speech as "Is Speech"
+								confidence as "Confidence"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    		 				Add 
+    		 				Import 
+    		 				Export 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+		     				title = "Overview"
+							fields
+							(
+								segment_id as "Segment ID"
+								transcript as "Transcript"
+								start_time as "Start Time"
+								end_time as "End Time"
+								text as "Text"
+								word_count as "Word Count"
+								is_speech as "Is Speech"
+								confidence as "Confidence"
+							)
+						)
+						datablock2
+						(
+							layout type = -2
+		     				title = "Transcript"
+		     				related field = transcript
+							fields
+							(
+								transcript_id as "Transcript ID"
+								video as "Video"
+								raw_text as "Raw Text"
+								language as "Language"
+								transcription_status as "Transcription Status"
+								created_at as "Created At"
+								updated_at as "Updated At"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    	 				)
+    				)
+				)
+			}
+			report edit_sessions_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								video as "Video"
+								started_at as "Started At"
+								last_active as "Last Active"
+								total_edits as "Total Edits"
+								status as "Status"
+								user as "User"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    		 				Add 
+    		 				Import 
+    		 				Export 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+		     				title = "Overview"
+							fields
+							(
+								video as "Video"
+								started_at as "Started At"
+								last_active as "Last Active"
+								total_edits as "Total Edits"
+								status as "Status"
+								user as "User"
+							)
+						)
+						datablock2
+						(
+							layout type = -2
+		     				title = "Video"
+		     				related field = video
+							fields
+							(
+								video_id as "Video ID"
+								user as "User"
+								wistia_media as "Wistia Media"
+								upload_date as "Upload Date"
+								status as "Status"
+								preview_url as "Preview URL"
+								duration as "Duration"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    	 				)
+    				)
+				)
+			}
+			report edit_sessions_by_status
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								user as "User"
+								video as "Video"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    		 				Add 
+    		 				Import 
+    		 				Export 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+							fields
+							(
+								video as "Video"
+								started_at as "Started At"
+								last_active as "Last Active"
+								total_edits as "Total Edits"
+								status as "Status"
+								user as "User"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    	 				)
+    				)
+				)
+			}
+			report media_Report
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = -1
+						datablock1
+						(
+							layout type = -1
+							fields
+							(
+								created_time as "Created Time"
+								description as "Description"
+								name as "Name"
+								progress as "Progress"
+								status as "Status"
+								type_field as "Type"
+								updated_time as "Updated Time"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    		 				Add 
+    		 				Import 
+    		 				Export 
+    	 				)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+    					)
+    				)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+							Print   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = -2
+		     				title = "Overview"
+							fields
+							(
+								created_time as "Created Time"
+								description as "Description"
+								name as "Name"
+								progress as "Progress"
+								status as "Status"
+								type_field as "Type"
+								updated_time as "Updated Time"
+							)
+						)
+					)
+					menu
+    				(
+    	 				header
+    	 				(
+    		 				Edit 
+    		 				Duplicate 
+    		 				Delete 
+    		 				Print 
+    	 				)
+    				)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "Space"
+				icon = "objects-spaceship"
+
+				section Section_1
+				{
+					displayname = "Dashboard"
+					icon = "ui-1-dashboard-half"
+					page DashBoard
+					{
+						icon = "ui-1-dashboard-half"
+					}
+				}
+				section Section_2
+				{
+					displayname = "Edits"
+					icon = "ui-1-edit-76"
+					form  suggested_edits
+					{
+						icon = "ui-1-bold-add"
+					}
+					report suggested_edits_Report
+					{
+						icon = "travel-world"
+					}
+					report suggested_edits_by_action_type
+					{
+						icon = "media-1-action-74"
+					}
+				}
+				section Section_3
+				{
+					displayname = "User Videos"
+					icon = "media-1-polaroid-user"
+					form  user_videos
+					{
+						icon = "ui-1-bold-add"
+					}
+					report user_videos_Report
+					{
+						icon = "media-1-polaroid-user"
+					}
+					report user_videos_by_status
+					{
+						icon = "design-2-selection"
+					}
+				}
+				section Section_4
+				{
+					displayname = "Subtitles"
+					icon = "tech-desktop"
+					form  subtitles
+					{
+						icon = "ui-1-bold-add"
+					}
+					report subtitles_Report
+					{
+						icon = "travel-world"
+					}
+				}
+				section Section_5
+				{
+					displayname = "Editing Commands"
+					icon = "users-2-a-edit"
+					form  editing_commands
+					{
+						icon = "ui-1-bold-add"
+					}
+					report editing_commands_Report
+					{
+						icon = "travel-world"
+					}
+					report editing_commands_by_interpreted_action
+					{
+						icon = "media-1-action-74"
+					}
+				}
+				section Section_6
+				{
+					displayname = "Transcripts"
+					icon = "media-2-tape"
+					form  transcripts
+					{
+						icon = "ui-1-bold-add"
+					}
+					report transcripts_Report
+					{
+						icon = "travel-world"
+					}
+					report transcripts_by_transcription_status
+					{
+						icon = "health-dna-38"
+					}
+				}
+				section Section_7
+				{
+					displayname = "Transcript Segments"
+					icon = "media-2-tape"
+					form  transcript_segments
+					{
+						icon = "ui-1-bold-add"
+					}
+					report transcript_segments_Report
+					{
+						icon = "tech-2-wifi-off"
+					}
+				}
+				section Section_8
+				{
+					displayname = "Edit Sessions"
+					icon = "ui-1-edit-76"
+					form  edit_sessions
+					{
+						icon = "ui-1-bold-add"
+					}
+					report edit_sessions_Report
+					{
+						icon = "travel-world"
+					}
+					report edit_sessions_by_status
+					{
+						icon = "design-2-selection"
+					}
+				}
+				section Section_9
+				{
+					displayname = "Media"
+					icon = "tech-webcam-38"
+					form  media
+					{
+						icon = "ui-1-bold-add"
+					}
+					report media_Report
+					{
+						icon = "media-1-play-68"
+					}
+				}
+				section ZC_App_Preferences
+				{
+					displayname = "App Preferences"
+					icon = "design-app"
+					systemcomponent
+					{
+						type = localization
+						displayname = "Language Selection"
+						icon = "education-language"
+					}
+					systemcomponent
+					{
+						type = connection
+						displayname = "Integrations"
+						icon = "tech-2-connection"
+					}
+				}
+				section ZC_Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = solid
+					show = {space,section,component}
+				}
+			}
+		}
+		customize
+		{
+			new theme = 11
+			font = "poppins"
+			color options
+			{
+				color = "6"
+			}
+			logo
+			{
+				preference = "none"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form edit_sessions
+			{
+				label placement = auto
+			}
+			form editing_commands
+			{
+				label placement = auto
+			}
+			form media
+			{
+				label placement = auto
+			}
+			form subtitles
+			{
+				label placement = auto
+			}
+			form suggested_edits
+			{
+				label placement = auto
+			}
+			form transcript_segments
+			{
+				label placement = auto
+			}
+			form transcripts
+			{
+				label placement = auto
+			}
+			form user_videos
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = amethyst
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form edit_sessions
+			{
+				label placement = auto
+			}
+			form editing_commands
+			{
+				label placement = auto
+			}
+			form media
+			{
+				label placement = auto
+			}
+			form subtitles
+			{
+				label placement = auto
+			}
+			form suggested_edits
+			{
+				label placement = auto
+			}
+			form transcript_segments
+			{
+				label placement = auto
+			}
+			form transcripts
+			{
+				label placement = auto
+			}
+			form user_videos
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = amethyst
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+}
